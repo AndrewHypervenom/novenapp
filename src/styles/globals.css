@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-background: 255 255 255;
+    --color-card: 248 250 252;
+    --color-text: 15 23 42;
+    --color-text-secondary: 100 116 139;
+    --color-border: 226 232 240;
+    --color-accent: 255 184 0;
+  }
+
+  .dark {
+    --color-background: 10 15 28;
+    --color-card: 26 34 52;
+    --color-text: 255 255 255;
+    --color-text-secondary: 180 198 239;
+    --color-border: 42 54 84;
+  }
+
+  body {
+    @apply transition-colors duration-300;
+    background-color: rgb(var(--color-background));
+    color: rgb(var(--color-text));
+  }
+}
+
+.card {
+  @apply bg-white dark:bg-[#1A2234] 
+         border border-gray-200 dark:border-[#2A3654] 
+         transition-all duration-300;
+}
+
+.card-hover {
+  @apply hover:bg-gray-50 dark:hover:bg-[#1E2943]
+         hover:shadow-lg dark:hover:shadow-xl
+         transition-all duration-300;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
+  }
+  100% {
+    transform: translateX(200%) skewX(-15deg);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+@layer components {
+  .nav-item {
+    @apply flex flex-col items-center gap-1.5 transition-all duration-200;
+  }
+
+  .glass-effect {
+    @apply backdrop-blur-xl bg-white/80 dark:bg-[#111827]/80;
+  }
+
+  .card-hover {
+    @apply hover:shadow-lg hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all duration-200;
+  }
+}

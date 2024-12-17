@@ -1,0 +1,24 @@
+@keyframes shimmer {
+    100% {
+      transform: translateX(200%) skewX(-12deg);
+    }
+  }
+  
+  .animate-shimmer {
+    animation: shimmer 2s infinite;
+  }
+  
+  /* Añade esto a tu globals.css */
+  @layer utilities {
+    .glass-morphism {
+      @apply bg-white/10 backdrop-blur-lg border border-white/20;
+    }
+    
+    .text-gradient {
+      @apply bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-yellow-200 to-green-500;
+    }
+  
+    .card-hover {
+      @apply transition-all duration-300 hover:shadow-lg hover:scale-[1.02];
+    }
+  }
