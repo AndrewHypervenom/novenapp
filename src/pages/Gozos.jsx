@@ -1,10 +1,36 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { Star } from 'lucide-react';
 
 const GozosView = () => {
-  // Scroll al inicio cuando el componente se monte
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // Configurar el observador de intersección
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('border-[#FFD700]/50');
+            entry.target.querySelector('.estribillo')?.classList.add('opacity-100');
+          } else {
+            entry.target.classList.remove('border-[#FFD700]/50');
+            entry.target.querySelector('.estribillo')?.classList.remove('opacity-100');
+          }
+        });
+      },
+      {
+        threshold: 0.5,
+        rootMargin: '-10% 0px -10% 0px'
+      }
+    );
+
+    // Observar todos los gozos
+    document.querySelectorAll('.gozo-item').forEach((gozo) => {
+      observer.observe(gozo);
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   const estribillo = `Dulce Jesús mío, mi niño adorado
@@ -90,6 +116,14 @@ Ven a nuestras almas, Ven, no tardes tanto!`
       className="container mx-auto px-4 py-6 pb-24 max-w-2xl"
     >
       <div className="rounded-2xl bg-[#1A2234] p-6 shadow-lg overflow-hidden relative">
+        {/* Decoración con estrellas en el título */}
+        <div className="absolute top-6 left-6">
+          <Star className="w-4 h-4 text-[#FFD700]/10" />
+        </div>
+        <div className="absolute top-6 right-6">
+          <Star className="w-4 h-4 text-[#FFD700]/10" />
+        </div>
+
         <h1 className="text-3xl font-bold text-[#FFD700] mb-8 text-center">
           Gozos de la Novena
         </h1>
@@ -111,7 +145,7 @@ Ven a nuestras almas, Ven, no tardes tanto!`
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="relative pl-8 border-l-2 border-[#FFD700]/20 group hover:border-[#FFD700]/50 transition-colors"
+              className="gozo-item relative pl-8 border-l-2 border-[#FFD700]/20 group transition-all duration-500"
             >
               <div className="absolute -left-4 top-0 w-8 h-8 bg-[#1A2234] border border-[#FFD700]/20 rounded-full flex items-center justify-center text-[#FFD700] text-sm">
                 {index + 1}
@@ -120,10 +154,11 @@ Ven a nuestras almas, Ven, no tardes tanto!`
               <div className="text-[#B4C6EF] text-center leading-relaxed">
                 <p className="whitespace-pre-line mb-6">{gozo.text}</p>
                 
-                <p className="text-[#FFD700] italic text-sm opacity-70 group-hover:opacity-100 transition-opacity">
+                <p className="estribillo text-[#FFD700] italic text-sm opacity-70 transition-all duration-500">
                   {estribillo}
                 </p>
               </div>
+              
             </motion.div>
           ))}
         </div>

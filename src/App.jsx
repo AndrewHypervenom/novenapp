@@ -6,23 +6,29 @@ import Home from "./pages/Home";
 import DayView from "./pages/DayView";
 import GozosView from "./pages/Gozos";
 import DaysView from "./pages/Days";
+import { SpeedInsights } from '@vercel/speed-insights/react';
+import { Analytics } from '@vercel/analytics/react';
 
 const App = () => {
   return (
-    <ThemeProvider>
-      <FontSizeProvider>
-        <Router>
-          <Routes>
-            <Route element={<Layout />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/day/:dayNumber" element={<DayView />} />
-              <Route path="/days" element={<DaysView />} />
-              <Route path="/gozos" element={<GozosView />} />
-            </Route>
-          </Routes>
-        </Router>
-      </FontSizeProvider>
-    </ThemeProvider>
+    <>
+      <ThemeProvider>
+        <FontSizeProvider>
+          <Router>
+            <Routes>
+              <Route element={<Layout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/day/:dayNumber" element={<DayView />} />
+                <Route path="/days" element={<DaysView />} />
+                <Route path="/gozos" element={<GozosView />} />
+              </Route>
+            </Routes>
+          </Router>
+        </FontSizeProvider>
+      </ThemeProvider>
+      <SpeedInsights />
+      <Analytics />
+    </>
   );
 };
 
